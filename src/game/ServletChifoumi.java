@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -22,11 +23,11 @@ public class ServletChifoumi extends HttpServlet {
     public ServletChifoumi() {
         super();
     }
-
+    public List<Integer> listeChoix;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       //  super.doGet(req, resp);
-        this.getServletContext().getRequestDispatcher("/choixSigne.jsp").forward(req, resp);
+        this.getServletContext().getRequestDispatcher("/WEB-INF/choixSigne.jsp").forward(req, resp);
 
     }
 // 0 pierre 1 feuille 2 ciseaux
@@ -36,7 +37,21 @@ public class ServletChifoumi extends HttpServlet {
         int choixPlayer = Integer.parseInt( req.getParameter("signe"));
         req.setAttribute("choixPlayer",choixPlayer);
 
-        int choixIA = 0 + (int)(Math.random() * ((2 - 0) + 1));
+
+        //int choixIA = 0 + (int)(Math.random() * ((2 - 0) + 1));
+        int choixIA = listeChoix.get(0 + (int)(Math.random() * ((listeChoix.size()-1 - 0) + 1)));
+        if (choixIA == 0){
+            choixIA = 1;
+        }
+        else{
+            if(choixIA == 1){
+              choixIA =  2 ;
+            }
+            else {
+                choixIA = 0;
+            }
+        }
+        listeChoix.add(choixPlayer);
         req.setAttribute("choixIA",choixIA);
 
 
@@ -60,11 +75,16 @@ public class ServletChifoumi extends HttpServlet {
         req.setAttribute("playerWin",playerWin);
 
         req.setAttribute("listeSigne",listeSigne);
-        this.getServletContext().getRequestDispatcher("/result.jsp").forward(req, resp);
+        this.getServletContext().getRequestDispatcher("/WEB-INF/result.jsp").forward(req, resp);
     }
 
     @Override
     public void init() throws ServletException {
-        super.init();
+      //  super.init();
+        listeChoix = new ArrayList<>();
+        listeChoix.add(0);
+        listeChoix.add(1);
+        listeChoix.add(2);
+
     }
 }
