@@ -39,16 +39,16 @@ public class ServletChifoumi extends HttpServlet {
 
 
         //int choixIA = 0 + (int)(Math.random() * ((2 - 0) + 1));
-        int choixIA = listeChoix.get(0 + (int)(Math.random() * ((listeChoix.size()-1 - 0) + 1)));
-        if (choixIA == 0){
-            choixIA = 1;
+        int choixIA = listeChoix.get(0 + (int)(Math.random() * ((listeChoix.size()-1 - 0) + 1))); // récupération parmis la liste de choix effectués
+        if (choixIA == 0){ //  si le choix récupéré est pierre
+            choixIA = 1; // alors IA sort feuille
         }
         else{
-            if(choixIA == 1){
-              choixIA =  2 ;
+            if(choixIA == 1){ // si le choix récupéré est feuille
+              choixIA =  2 ; // alors IA sort ciseaux
             }
-            else {
-                choixIA = 0;
+            else {// si le choix récupéré est ciseaux
+                choixIA = 0; // alors IA sort pierre
             }
         }
         listeChoix.add(choixPlayer);
